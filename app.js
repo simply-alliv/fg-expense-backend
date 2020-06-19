@@ -11,6 +11,8 @@ const fs = require("file-system");
 const cors = require("cors");
 const webRoutes = require("./routes/web");
 const commentRoutes = require("./routes/comments");
+const swaggerSpec = require("./utility/swaggerSpec");
+const swaggerUi = require("swagger-ui-express");
 
 const app = express();
 
@@ -44,6 +46,13 @@ app.use(cors());
 //setup app routes
 app.use("/", webRoutes);
 app.use("/comments", commentRoutes);
+
+// use swagger-Ui-express for your app documentation endpoint
+const swaggerRouter = express.Router();
+swaggerRouter.use("/", swaggerUi.serve);
+swaggerRouter.get("/", swaggerUi.setup(swaggerSpec));
+swaggerRouter.get("/", swaggerUi.setup(swaggerSpec));
+app.use("/documentation", swaggerRouter);
 
 /*
     |||  I'll use route method to handle request and response circle  |||
