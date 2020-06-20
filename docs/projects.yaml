@@ -1,0 +1,153 @@
+paths:
+  # Endpoint to get all projects
+  /projects/all:
+    # GET operation
+    get:
+      tags:
+        - projects
+
+      summary: Gets all projecs
+
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            type: array
+            items:
+              $ref: "#/definitions/Project"
+        "400":
+          description: Invalid body supplied
+          schema:
+            $ref: "#/definitions/BadRequestResponse"
+
+definitions:
+  # Project schema
+  Project:
+    type: object
+    required:
+      - name
+    properties:
+      name:
+        type: string
+      mdas:
+        type: array
+        items:
+          $ref: "#/definitions/MDA"
+      companies:
+        type: array
+        items:
+          $ref: "#/definitions/Company"
+      # budgets:
+      #   type: array
+      #   items:
+      #     $ref: "#/definitions/Budget"
+      expenses:
+        type: array
+        items:
+          $ref: "#/definitions/Payment"
+
+  # MDA schema
+  MDA:
+    type: object
+    required:
+      - name
+      - tweet_handle
+    properties:
+      name:
+        type: string
+      tweet_handle:
+        type: string
+      head:
+        type: array
+        items:
+          $ref: "#/definitions/Head"
+      projects:
+        type: array
+        items:
+          $ref: "#/definitions/Project"
+      # budgets:
+      #   type: array
+      #   items:
+      #     $ref: "#/definitions/Budget"
+      expenses:
+        type: array
+        items:
+          $ref: "#/definitions/Payment"
+
+  # Company schema
+  Company:
+    type: object
+    required:
+      - name
+      - tweet_handle
+    properties:
+      name:
+        type: string
+      tweet_handle:
+        type: string
+      head:
+        type: array
+        items:
+          $ref: "#/definitions/Head"
+      projects:
+        type: array
+        items:
+          $ref: "#/definitions/Project"
+      expenses:
+        type: array
+        items:
+          $ref: "#/definitions/Payment"
+
+  # Head schema
+  Head:
+    type: object
+    required:
+      - name
+      - tweet_handle
+      - head_category
+    properties:
+      name:
+        type: string
+      tweet_handle:
+        type: string
+      head_category:
+        type: string
+      company:
+        $ref: "#/definitions/Company"
+      mda:
+        $ref: "#/definitions/MDA"
+
+  # Payment schema
+  Payment:
+    type: object
+    properties:
+      minister:
+        type: array
+        items:
+          $ref: "#/definitions/Head"
+      project:
+        $ref: "#/definitions/Project"
+      companies:
+        type: array
+        items:
+          $ref: "#/definitions/Company"
+      company_chairman:
+        type: array
+        items:
+          $ref: "#/definitions/Head"
+      # budgets:
+      #   type: array
+      #   items:
+      #     $ref: '#/definitions/Budget'
+
+  # BadRequestResponse model
+  BadRequestResponse:
+    type: object
+    required:
+      - status
+      - data
+    properties:
+      status:
+        type: string
+      data:
+        type: string
