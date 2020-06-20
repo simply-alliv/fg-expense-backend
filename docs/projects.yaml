@@ -65,10 +65,6 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/Project"
-      # budgets:
-      #   type: array
-      #   items:
-      #     $ref: "#/definitions/Budget"
       expenses:
         type: array
         items:
@@ -135,10 +131,6 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/Head"
-      # budgets:
-      #   type: array
-      #   items:
-      #     $ref: '#/definitions/Budget'
 
   # BadRequestResponse model
   BadRequestResponse:
