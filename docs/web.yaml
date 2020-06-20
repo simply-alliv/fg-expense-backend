@@ -20,6 +20,38 @@ paths:
           schema:
             $ref: "#/definitions/BadRequestResponse"
 
+  # Endpoint to get all expenses
+  /expenses/all:
+    # GET operation
+    get:
+      tags:
+        - expenses
+
+      summary: Gets all expenses
+
+      responses:
+        "200":
+          description: Successful operation
+          schema:
+            type: object
+            required:
+              - status
+              - message
+              - data
+            properties:
+              status:
+                type: string
+              message:
+                type: string
+              data:
+                type: array
+                items:
+                  $ref: "#/definitions/Expense"
+        "400":
+          description: Invalid body supplied
+          schema:
+            $ref: "#/definitions/BadRequestResponse"
+
 definitions:
   # Project schema
   Project:
@@ -37,14 +69,35 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/Company"
-      # budgets:
-      #   type: array
-      #   items:
-      #     $ref: "#/definitions/Budget"
       expenses:
         type: array
         items:
           $ref: "#/definitions/Payment"
+
+  # Expense schema
+  Expense:
+    type: object
+    properties:
+      name:
+        type: string
+      mda:
+        type: array
+        items:
+          $ref: "#/definitions/MDA"
+      minister:
+        type: array
+        items:
+          $ref: "#/definitions/Head"
+      companies:
+        type: array
+        items:
+          $ref: "#/definitions/Company"
+      company_chairman:
+        type: array
+        items:
+          $ref: "#/definitions/Head"
+      project:
+        $ref: "#/definitions/Project"
 
   # MDA schema
   MDA:
